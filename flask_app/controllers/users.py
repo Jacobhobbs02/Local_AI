@@ -30,6 +30,7 @@ def chat():
             "think": False
         }
 
+        print(payload)
         r = requests.post(OLLAMA_URL, json=payload)
         data = r.json()
 
@@ -40,3 +41,10 @@ def chat():
         return redirect(url_for("chat"))
 
     return render_template("index.html", messages=session.get("messages", []))
+
+
+
+@app.route('/clear-chat')
+def clear_chat():
+    session.pop("messages", None)
+    return redirect(url_for("index"))

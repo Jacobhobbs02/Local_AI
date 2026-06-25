@@ -11,10 +11,9 @@
 <body>
 
     {% if messages and messages|length > 0 %}
+        <section class="full-chat">
 
-    <section>
-
-        <div class="response">
+        <div class="response" id="response">
 
             {% for message in messages %}
 
@@ -27,7 +26,7 @@
             {% else %}
 
                 <div class="ai">
-                    <p>{{ message.text }} </p>
+                    <p>{{ message.text }}</p>
 
                 </div>
 
@@ -37,12 +36,9 @@
 
         </div>
 
-             <div id="loading" style="display: none;">
-                        Jr is thinking
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
-                    </div>
+            <div id="loading" style="display: none;">
+                <div class="thinking-ball"></div>
+            </div>
       
 
 
@@ -51,20 +47,29 @@
                         <br>
                     <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
                         <br>
-                    <input id="submit" type="submit" value="submit" class="btn btn-light">
+                    <div class="btns">
+                            <input id="submit" type="submit" value="Submit" class="btn btn-light">
+                            <a  href="/clear-chat" onclick="return deleteChat()" class="delete">New Chat</a>
+                        </div>
                 </form>
     </section>
 
     {% else %}
 
         <section>
+
             <div class="no-chat">
                 <form id="chat-form" action="/chat" method="post" class="col-6 mx-auto"> 
                     <h3>Hello! How can I assist you today?</h3>
+
+                     <div id="loading" style="display: none;">
+                <div class="thinking-ball"></div>
+            </div>
                         <br>
                     <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
                         <br>
-                    <input id="submit" type="submit" value="submit" class="btn btn-light">
+                    <input id="submit" type="submit" value="Submit" class="btn btn-light">
+                    
                 </form>
             </div>
     </section>

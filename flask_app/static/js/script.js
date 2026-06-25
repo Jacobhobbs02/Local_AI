@@ -28,3 +28,19 @@ document.addEventListener("DOMContentLoaded", function() {
         loading.style.display = "block"
     });
 });
+
+
+window.onload = function() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
+};
+
+
+
+function deleteChat() {
+    return confirm(
+        "This will clear your entire chat history. Are you sure you want to continue?"
+    );
+}
