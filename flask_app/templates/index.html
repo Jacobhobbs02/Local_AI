@@ -9,21 +9,67 @@
     <title>Jr</title>
 </head>
 <body>
-    {% if response %}
-        <h3>Response</h3>
-        <p> {{ response }} </p>
-    {% endif %}
 
+    {% if messages and messages|length > 0 %}
+
+    <section>
+
+        <div class="response">
+
+            {% for message in messages %}
+
+                {% if message.role == "user" %}
+
+                <div class="user">
+                    <p>{{message.text}}</p>
+                </div>
+
+            {% else %}
+
+                <div class="ai">
+                    <p>{{ message.text }} </p>
+
+                </div>
+
+             {% endif %}
+            
+            {% endfor %}
+
+        </div>
+
+             <div id="loading" style="display: none;">
+                        Jr is thinking
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+      
+
+
+
+          <form id="chat-form" action="/chat" method="post" class="col-6 mx-auto"> 
+                        <br>
+                    <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
+                        <br>
+                    <input id="submit" type="submit" value="submit" class="btn btn-light">
+                </form>
+    </section>
+
+    {% else %}
+
+        <section>
             <div class="no-chat">
-                <form action="/chat" method="post" class="col-6 mx-auto"> 
+                <form id="chat-form" action="/chat" method="post" class="col-6 mx-auto"> 
                     <h3>Hello! How can I assist you today?</h3>
                         <br>
-                    <input type="text" name="prompt" class="input form-control" placeholder="Ask Away!" required>
+                    <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
                         <br>
                     <input id="submit" type="submit" value="submit" class="btn btn-light">
                 </form>
             </div>
+    </section>
+    {% endif %}
 
-        </div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
