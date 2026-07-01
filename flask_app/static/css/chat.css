@@ -14,8 +14,68 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html,
 body {
-    background-color: aliceblue !important; 
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(
+    to right,
+    rgb(59 130 246 / 0.5) 0%,
+    rgb(190 9 42) 100%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+/* Alerts */
+.alert {
+    margin: auto;
+    align-items: center;
+    display: flex;
+    width: 25%;
+    height: 150px;
+    flex-direction: column;
+    color: white;
+    font-weight: 600;
+     /* Glass effect */
+    background: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* Raised appearance */
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 30px;
+    box-shadow:
+        0 8px 32px rgb(0 0 0 / 0.2),
+        inset 0 1px 0 rgb(255 255 255 / 0.2);
+
+}
+
+
+#submit {
+    width: 20% !important;
+    position: sticky;
+    background-color: #00A8FF;
+    color: #FFF;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.98s ease;
+}
+
+#submit:hover {
+    background-color: #0056B3;
+    box-shadow: 0px 4px 15px rgba(0, 168, 255, 0.7);
+}
+
+section {
+    overflow: hidden;
 }
 
 .full-chat {
@@ -24,7 +84,7 @@ body {
     align-items: center;
 }
 .no-chat {
-    height: auto;
+    height: 500px;
     width: 1600px;
     margin: auto;
     display: flex;
@@ -36,6 +96,7 @@ body {
     transition: color 0.98s ease-in-out, text-shadow 0.98s ease-in-out;
     z-index: 10;
     animation: fadeInUp 1.5s ease-out forwards; 
+    color: white;
 }
 
 form {
@@ -120,7 +181,7 @@ form {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #00A8FF;
+    background: #FFF;
     animation: ai-thinking 2s infinite ease-in-out;
 }
 

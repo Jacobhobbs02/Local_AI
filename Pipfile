@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 flask = "*"
 requests = "*"
+pymysql = "*"
+bcrypt = "*"
+itsdangerous = "*"
+flask-bcrypt = "*"
 
 [dev-packages]
 

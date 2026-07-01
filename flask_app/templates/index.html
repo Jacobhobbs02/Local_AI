@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename='favicon.ico') }}">
+    <title>Skier's Choice | Login Portal</title>
+</head>
+<body>
+    <br>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class='alert' onclick="popOut(this)">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                        <button id="submit">I Accept</button>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <section>
+            <form action="/login" method="post" class=" login col-4 mx-auto"> 
+                <div class="title"></div>
+                <h1 id="login">Login</h1>
+                <div class="email-container">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" autocomplete="username" required>
+                </div>
+                    <br>
+                <div class="password-container">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" autocomplete="current-password" required>
+                    <img src="{{url_for('static', filename='icons/show_button.png') }}" onclick="togglePasswordVisibility('password', 'togglePassword')" id="togglePassword" class="show-password-btn" alt="Show Button">
+                </div>
+                    <br>
+                <input id="submit" type="submit" value="Login" class="btn btn-light">
+                <p class="sub-link">Don't have an account? <a href="/new_account">Register here!</a></p>
+                <p class="sub-link">Forgot password? <a href="/forgot_password">Click Here!</a></p>
+            </form>
+        </section>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>

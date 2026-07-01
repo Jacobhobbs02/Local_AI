@@ -1,3 +1,4 @@
+/* lets user click enter to send prompts*/
 document.addEventListener("DOMContentLoaded", function() {
     const prompt = document.getElementById("prompt");
     const form = document.getElementById("chat-form");
@@ -15,11 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 form.requestSubmit();
             }
         });
-    }
-    
+    } 
 });
 
-
+/* helps loading dot preform when page loads */
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("chat-form");
     const loading = document.getElementById("loading");
@@ -28,8 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         loading.style.display = "block"
     });
 });
-
-
 window.onload = function() {
     window.scrollTo({
         top: document.body.scrollHeight,
@@ -38,9 +36,10 @@ window.onload = function() {
 };
 
 
-
+/* Deletes chats */
 function deleteChat() {
     return confirm(
         "This will clear your entire chat history. Are you sure you want to continue?"
     );
 }
+
