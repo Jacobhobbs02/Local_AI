@@ -10,7 +10,7 @@ messages = []
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return render_template('chat.html')
 
 
 @app.route('/chat', methods=['GET', 'POST'])
@@ -40,11 +40,11 @@ def chat():
 
         return redirect(url_for("chat"))
 
-    return render_template("index.html", messages=session.get("messages", []))
+    return render_template("chat.html", messages=session.get("messages", []))
 
 
 
 @app.route('/clear-chat')
 def clear_chat():
     session.pop("messages", None)
-    return redirect(url_for("index"))
+    return redirect(url_for("chat"))
