@@ -3,16 +3,13 @@ from flask import render_template, redirect, session, request, flash, url_for
 import requests
 from flask_app import app
 from flask_app.models.user import User
+from flask_app.models.chat import Conversation
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 import threading
 import random
 import string
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
-
-OLLAMA_URL = "http://192.168.2.180:11434/api/generate"
-
-messages = []
 
 # Serializer for generating secure tokens (e.g., email confirmation) 
 s = URLSafeTimedSerializer(app.secret_key)
@@ -48,9 +45,6 @@ def generate_random_password(length=25):
 def index():
     return render_template('index.html')
 
-@app.route('/chatroom', methods=['GET'])
-def chatroom():
-    return render_template('chat.html')
 
 @app.route('/new_account', methods=['GET'])
 def new_account():
@@ -119,47 +113,35 @@ def login():
 
         # User session creation after successful login
         session['user_id'] = user.id
-        return redirect('/chat')
+        return redirect('/chatroom')
 
     # If it's a GET request, show the login page
     return render_template('login.html')
 
+#Chatroom Page 
+@app.route('/chatroom', methods=['GET'])
+def chatroom():
 
-@app.route('/chat', methods=['GET', 'POST'])
-def chat():
+    if 'user_id' not in session:
+        return redirect('/logout')
     
-    if request.method == "POST":
-        user_input = request.form["prompt"]
+    data = {
+        'id': session['user_id']
+    }
+    #User who logged in
+    user = User.get_one(data)
 
-        messages = session.get("messages", [])
+    #All the books from the db
+    all_chats = Conversation.get_all_by_user(session['user_id'])
+    return render_template("chat.html", user=user, chats=all_chats)
 
-        messages.append({"role": "user", "text": user_input})
-
-        payload = {
-            "model": "qwen3.5:latest",
-            "prompt": user_input,
-            "stream": False,
-            "think": False
-        }
-
-        print(payload)
-        r = requests.post(OLLAMA_URL, json=payload)
-        data = r.json()
-
-        response_text = data.get("response", "No response")
-        messages.append({"role": "ai", "text": response_text})
-        session["messages"] = messages
-
-        return redirect(url_for("chat"))
-
-    return render_template("chat.html", messages=session.get("messages", []))
+#Logout Method
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 
-
-@app.route('/clear-chat')
-def clear_chat():
-    session.pop("messages", None)
-    return redirect(url_for("chatroom"))
 
 
 #PASSWORD CODE ---------------------------------------------------------------------------->

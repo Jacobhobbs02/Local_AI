@@ -9,19 +9,18 @@
     <title>Skier's Choice | Chat</title>
 </head>
 <body>
-    {% if messages and messages|length > 0 %}
+    {% if chats and chats|length > 0 %}
         <section class="full-chat">
             <div class="response" id="response">
-                {% for message in messages %}
-                    {% if message.role == "user" %}
+                {% for chat in chats %}
                         <div class="user">
-                            <p>{{message.text}}</p>
+                            <p>{{ chat.prompt }}</p>
                         </div>
-                    {% else %}
+                 
                         <div class="ai">
-                            <p>{{ message.text }}</p>
+                            <p>{{ chat.response }}</p>
                         </div>
-                    {% endif %}
+                
                 {% endfor %}
             </div>
 
