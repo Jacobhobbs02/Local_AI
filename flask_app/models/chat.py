@@ -61,3 +61,11 @@ class Conversation:
             all_chats.append(one_chat)
         
         return all_chats
+    
+    @classmethod
+    def delete_by_group(cls, group_id):
+        query = "DELETE FROM conversations WHERE group_id = %(group_id)s;"
+        data = {
+            "group_id": group_id
+        }
+        return connectToMySQL(db).query_db(query, data)

@@ -64,3 +64,11 @@ class Group:
             return 1
 
         return int(results[0]['group_number']) + 1
+    
+    @classmethod
+    def delete(cls, group_id):
+        query = "DELETE FROM `groups` WHERE id = %(id)s;"
+        data = {
+            "id": group_id
+        }
+        return connectToMySQL(db).query_db(query, data)

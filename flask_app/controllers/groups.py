@@ -27,3 +27,4 @@ def groups(group_id):
     return render_template("chat.html", user=user, chats=all_chats, groups=all_groups)
 
 
+

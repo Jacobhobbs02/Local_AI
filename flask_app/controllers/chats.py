@@ -49,7 +49,16 @@ def chat():
         return redirect(f'/chatroom/{group_id}')
 
 
-@app.route('/clear-chat')
-def clear_chat():
-    session.pop("messages", None)
+@app.route('/clear-chat/<int:group_id>')
+def clear_chat(group_id):
+
+    if 'user_id' not in session:
+        return redirect('/logout')
+
+    # Delete all conversations in this group
+    Conversation.delete_by_group(group_id)
+
+    # Delete the group
+    Group.delete(group_id)
+
     return redirect(url_for("chatroom"))

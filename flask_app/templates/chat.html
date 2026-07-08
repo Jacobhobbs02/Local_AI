@@ -9,31 +9,32 @@
     <title>Skier's Choice | Chat</title>
 </head>
 <body>
-
-    <nav class="top-nav">
-        <h1> Hello, {{user.full_name}}</h1>
-        <a  href="/logout" class="delete">Logout</a>
-        <br>
-    </nav>
-
     <section class="display">
-    <div class="groups">
+
+    <div class="group-list">
+        <img src="{{ url_for('static', filename='icons/brand.png') }}" class="brand" alt="Profile Picture">
+         <p><a class="group-item" href="/chatroom">+ New Chat</a></p>
         {% for group in groups %}
         <p><a class="group-item" href="/chatroom/{{ group.id }}">{{ group.title }}</a></p>
         {% endfor %}
+        <div class="nameplate">
+            👤 {{user.full_name}}
+        </div>
     </div>
 
         <section>
             <div class="no-chat">
+                <div class="form-text">
+                     <h3>Hello! How can I assist you today?</h3>
+                </div>
+
                 <form id="chat-form" action="/chat" method="post" class="col-6 mx-auto"> 
-                    <h3>Hello! How can I assist you today?</h3>
                     <div id="loading" style="display: none;">
                         <div class="thinking-ball"></div>
                     </div>
                         <br>
                     <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
-                        <br>
-                    <input id="submit" type="submit" value="Submit" class="btn btn-light">  
+                    <input id="submit" type="submit" value="↑">  
                 </form>
             </div>
         </section>
