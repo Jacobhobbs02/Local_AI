@@ -4,6 +4,7 @@ import requests
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.chat import Conversation
+from flask_app.models.group import Group
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 import threading
@@ -131,9 +132,9 @@ def chatroom():
     #User who logged in
     user = User.get_one(data)
 
-    #All the books from the db
-    all_chats = Conversation.get_all_by_user(session['user_id'])
-    return render_template("chat.html", user=user, chats=all_chats)
+    #All groups linked to those conversations
+    all_groups = Group.get_all_by_user(session['user_id'])
+    return render_template("chat.html", user=user, groups=all_groups)
 
 #Logout Method
 @app.route('/logout')
@@ -143,6 +144,27 @@ def logout():
 
 
 
+@app.route('/chatroom/<int:group_id>')
+def group_chat(group_id):
+
+    if 'user_id' not in session:
+        return redirect('/logout')
+
+    data = {
+        'id': session['user_id']
+    }
+
+    user = User.get_one(data)
+
+    group = Group.get_one({
+        "id": group_id
+    })
+
+    chats = Conversation.get_all_by_group(group_id)
+
+    groups = Group.get_all_by_user(session['user_id'])
+
+    return render_template("group.html",user=user,group=group,chats=chats,groups=groups)
 
 #PASSWORD CODE ---------------------------------------------------------------------------->
 

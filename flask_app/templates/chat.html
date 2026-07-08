@@ -9,37 +9,19 @@
     <title>Skier's Choice | Chat</title>
 </head>
 <body>
-    {% if chats and chats|length > 0 %}
-        <section class="full-chat">
-            <div class="response" id="response">
-                {% for chat in chats %}
-                        <div class="user">
-                            <p>{{ chat.prompt }}</p>
-                        </div>
-                 
-                        <div class="ai">
-                            <p>{{ chat.response }}</p>
-                        </div>
-                
-                {% endfor %}
-            </div>
 
-            <div id="loading" style="display: none;">
-                <div class="thinking-ball"></div>
-            </div>
+    <nav class="top-nav">
+        <h1> Hello, {{user.full_name}}</h1>
+        <a  href="/logout" class="delete">Logout</a>
+        <br>
+    </nav>
 
-            <form id="chat-form" action="/chat" method="post" class="col-3 mx-auto"> 
-                    <br>
-                <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
-                    <br>
-                <div class="btns">
-                    <input id="submit" type="submit" value="Submit" class="btn btn-light">
-                    <a  href="/clear-chat" onclick="return deleteChat()" class="delete">New Chat</a>
-                </div>
-            </form>
-        </section>
-
-    {% else %}
+    <section class="display">
+    <div class="groups">
+        {% for group in groups %}
+        <p><a class="group-item" href="/chatroom/{{ group.id }}">{{ group.title }}</a></p>
+        {% endfor %}
+    </div>
 
         <section>
             <div class="no-chat">
@@ -55,7 +37,8 @@
                 </form>
             </div>
         </section>
-    {% endif %}
+  
+      </section>
 <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>

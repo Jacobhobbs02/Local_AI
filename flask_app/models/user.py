@@ -14,6 +14,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.conversations = []
+        self.groups = []
 
 #Saving User Information 
     @classmethod

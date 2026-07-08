@@ -31,6 +31,32 @@ body {
 }
 
 
+
+.group-item {
+    display: inline-block; 
+     transition: transform 0.25s ease;
+     height: auto;
+    min-width: 4%;
+    background-color: #FFF;
+    border-radius: 17px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    text-align: center;
+    font-size: 30px;
+}
+
+
+.group-item:link, a:visited, a:hover, a:active {
+    text-decoration: none;--bs-text-opacity: 1;
+    color:#1f1f1f !important;
+   
+  }
+
+.group-item:hover {
+     transform: translateY(-4px) scale(1.05);
+}
+
+
 /* Alerts */
 .alert {
     margin: auto;
@@ -74,6 +100,68 @@ body {
     box-shadow: 0px 4px 15px rgba(0, 168, 255, 0.7);
 }
 
+
+nav {
+     height: 15vh;
+
+     width: auto;
+    /* Glass effect */
+    background: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* Raised appearance */
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 14px;
+    box-shadow:
+        0 8px 32px rgb(0 0 0 / 0.2),
+        inset 0 1px 0 rgb(255 255 255 / 0.2);
+
+    align-items: center;
+    animation: fadeInUp 1.5s ease-out forwards;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: flex-end;
+    z-index: 10;
+}
+
+.display  {
+    display: flex;
+    justify-content: row;
+    gap: 3rem;
+}
+
+.groups {
+    margin-top: 30px;
+    height: 70vh;
+     width: 10vw;
+
+    /* Glass effect */
+    background: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    /* Raised appearance */
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 14px;
+    box-shadow:
+        0 8px 32px rgb(0 0 0 / 0.2),
+        inset 0 1px 0 rgb(255 255 255 / 0.2);
+  
+    animation: fadeInUp 1.5s ease-out forwards;
+    align-items: center;
+    color: white;
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start;
+    padding-top: 1%; 
+    z-index: 10;
+    flex-direction: column;
+}
+
+
 section {
     overflow: hidden;
 }
@@ -83,13 +171,60 @@ section {
     flex-direction: column;
     align-items: center;
 }
+
+
+
+.response {
+    min-height: 70vh;
+    width: 80vw;
+    margin: auto;
+    display: flex;
+    padding: 0%;
+    margin-top: 1%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 17px;
+    transition: color 0.98s ease-in-out, text-shadow 0.98s ease-in-out;
+    z-index: 10;
+    animation: fadeInUp 1.5s ease-out forwards; 
+}
+
+.user {
+    align-self: flex-end;
+    height: auto;
+    max-width: 70%;
+    min-width: 4%;
+    background-color: #FFF;
+    border-radius: 17px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    text-align: center;
+}
+
+
+.ai {
+    align-self: flex-start;
+    height: auto;
+    max-width: 70%;
+    background-color: #FFF;
+    border-radius: 17px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.user p,
+.ai p {
+    margin: 0;
+}
+
+
 .no-chat {
     height: 500px;
     width: 1600px;
     margin: auto;
     display: flex;
     padding: 0%;
-    margin-top: 10%;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -133,49 +268,6 @@ form {
     box-shadow: 0px 4px 15px rgba(0, 168, 255, 0.7);
 }
 
-.response {
-    min-height: 70vh;
-    width: 80vw;
-    margin: auto;
-    display: flex;
-    padding: 0%;
-    margin-top: 10%;
-    align-items: center;
-    flex-direction: column;
-    justify-content: flex-start;
-    border-radius: 17px;
-    transition: color 0.98s ease-in-out, text-shadow 0.98s ease-in-out;
-    z-index: 10;
-    animation: fadeInUp 1.5s ease-out forwards; 
-}
-
-.user {
-    align-self: flex-end;
-    height: auto;
-    max-width: 70%;
-    min-width: 4%;
-    background-color: #FFF;
-    border-radius: 17px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.1);
-    text-align: center;
-}
-
-
-.ai {
-    align-self: flex-start;
-    height: auto;
-    max-width: 70%;
-    background-color: #FFF;
-    border-radius: 17px;
-    padding: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.1);
-}
-
-.user p,
-.ai p {
-    margin: 0;
-}
 
 .thinking-ball {
     width: 20px;
@@ -214,7 +306,7 @@ form {
 
 .delete {
     background-color: #DC3545;
-    color: #FFF;
+    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
     border: none;
     padding: 12px 24px;
     font-size: 18px;
