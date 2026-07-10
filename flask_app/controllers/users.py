@@ -166,6 +166,34 @@ def group_chat(group_id):
 
     return render_template("group.html",user=user,group=group,chats=chats,groups=groups)
 
+
+
+@app.route('/update/<users_id>', methods=['POST'])
+def update_user_information(users_id):
+
+    if 'user_id' not in session:
+        return redirect('/logout')
+    
+    # Validate user input
+    if not User.validate_user(request.form):
+        return redirect("/update/information")
+    
+    # Prepare data for updating the user
+    data = {
+        "full_name": request.form['full_name'],
+        "email": request.form['email']
+    }
+
+    # Update user information in the database
+    User.update_user(data, users_id)
+    flash("Account Updated Successfully!")
+    return redirect('/chatroom')
+
+@app.route("/delete_account/<user_id>", methods=['POST'])
+def delete_account(user_id):
+    User.delete_account(user_id)
+    return redirect("/")
+
 #PASSWORD CODE ---------------------------------------------------------------------------->
 
 #Forgot Password Page

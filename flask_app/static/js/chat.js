@@ -36,10 +36,76 @@ window.onload = function() {
 };
 
 
-/* Deletes chats */
-function deleteChat() {
-    return confirm(
-        "This will clear your entire chat history. Are you sure you want to continue?"
-    );
-}
+// Chat Context Menu
+const menu = document.getElementById("context-menu");
 
+document.querySelectorAll(".extras").forEach(button => {
+    button.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const rect = button.getBoundingClientRect();
+
+        menu.style.left = `${rect.right + 8}px`;
+        menu.style.top = `${rect.top}px`;
+        menu.style.display = "block";
+
+        menu.dataset.chatId = button.dataset.id;
+    });
+});
+
+
+// Profile Context Menu
+const profileButton = document.querySelector(".profile");
+const profileContextMenu = document.getElementById("context-profile-menu");
+const profileMenu = document.getElementById("profile-menu");
+const openProfile = document.getElementById("open-profile");
+
+profileButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    profileContextMenu.style.display = "block";
+
+    const rect = profileButton.getBoundingClientRect();
+
+    profileContextMenu.style.left = `${rect.right + 8}px`;
+    profileContextMenu.style.top = `${rect.top - 60}px`; // Move menu upward
+});
+
+
+// Open the profile modal
+openProfile.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    profileContextMenu.style.display = "none";
+    profileMenu.style.display = "block";
+});
+
+
+// Close menus when clicking elsewhere
+document.addEventListener("click", (e) => {
+
+    // Close chat context menu
+    if (
+        !menu.contains(e.target) &&
+        !e.target.classList.contains("extras")
+    ) {
+        menu.style.display = "none";
+    }
+
+    // Close profile context menu
+    if (
+        !profileContextMenu.contains(e.target) &&
+        !profileButton.contains(e.target)
+    ) {
+        profileContextMenu.style.display = "none";
+    }
+
+    // Close profile modal
+    if (
+        !profileMenu.contains(e.target) &&
+        e.target !== openProfile
+    ) {
+        profileMenu.style.display = "none";
+    }
+
+});

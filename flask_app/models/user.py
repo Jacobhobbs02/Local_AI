@@ -104,6 +104,28 @@ class User:
         else:
             return None  # Handle case where user is not found
 
+
+# Updating User Information
+    @classmethod
+    def update_user(cls, data, id):
+        # Get the current password
+        if not data.get('password'):
+            data['password'] = User.get_current_password(id)
+
+        query = """
+                UPDATE users 
+                SET full_name = %(full_name)s, 
+                email = %(email)s, 
+                password = %(password)s, 
+                updated_at = NOW()
+                WHERE id = %(id)s;
+                """
+        data['id'] = id
+        connectToMySQL(db).query_db(query, data)
+        results = connectToMySQL(db).query_db(query, data)
+        return results
+
+
 #Updating User Password    
     @classmethod
     def update_password(cls, data):

@@ -28,7 +28,7 @@
     }
 }
 
-
+/* Page Format */
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -40,6 +40,7 @@ body{
     color:#202123;
 }
 
+/*Chat Screen */
 .display  {
     display: flex;
     width: 100%;
@@ -48,28 +49,37 @@ body{
     gap: 3rem;
 }
 
+/* Group list */
 .group-list {
-    height: auto;
+    height: 100vh;
     width: 10vw;
     background:#f7f7f8;
     border-right:1px solid #e5e5e5;
     display: flex;
+    overflow-y: auto; 
     gap: .5rem;
     padding-top: 1%;
     justify-content: flex-start;
     flex-direction: column;
+    /* Scroll bar hidden */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* ALso scroll bar hidden */
+.group-list::-webkit-scrollbar {
+    display: none;
 }
 
 .brand {
     height: 70px;
 }
 
-.group-item {
-    text-overflow: ellipsis !important;
-     white-space: nowrap;
-    overflow: hidden;
-    
-    display: inline-block; 
+.group-row {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     transition: transform 0.25s ease;
     width: 90%;
     border-radius: 17px;
@@ -79,16 +89,81 @@ body{
     transition: all .50s ease;
 }
 
+.group-row:hover {
+     transform: translateY(-4px) scale(1.05) !important;
+       background-color: #FFF;
+       box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.group-item {
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .group-item:link, a:visited, a:hover, a:active {
     text-decoration: none;--bs-text-opacity: 1;
     color:#1f1f1f !important;
   }
 
-.group-item:hover {
-     transform: translateY(-4px) scale(1.05) !important;
-       background-color: #FFF;
-       box-shadow: 0 2px 8px rgba(0,0,0,.1);
+.extras {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
 }
+
+
+.menu {
+    display: none;
+    position: fixed;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+    z-index: 11;
+    overflow: hidden;
+}
+
+.menu button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background: #f3f3f3;
+}
+
+.menu .delete-btn {
+    background: #DC3545;
+    color: white;
+}
+
+.menu .delete-btn:hover {
+   background: #B02A37;
+}
+
+.menu .logout {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    border: none;
+    background: #DC3545;
+    color: white !important;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu .logout:hover {
+    background: #B02A37;
+}
+
+
 
 .nameplate {
     margin-top: auto;
@@ -96,6 +171,7 @@ body{
     width: auto;
     display: inline-flex;
     justify-content: flex-start;
+    gap: 12rem;
     border-top: 1px solid #e5e5e5;
     align-items: center;
     padding-left: 1%;
@@ -109,6 +185,108 @@ body{
        box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 
+#profile-menu {
+    display: none;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    height: 60vh;
+    width: 30vw;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    padding: 2rem;
+
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+
+    z-index: 11;
+}
+
+.profile {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#profile-form {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+
+#profile-form input {
+   border-radius: 20px; 
+    border-color: #e5e5e5!important;
+    background:#f7f7f8;
+}
+
+#buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* update button */
+#update {
+    height: 48px;
+    width: 150px;
+    position: sticky;
+    background-color: #00A8FF !important;
+    color: #FFF;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.98s ease;
+    border-radius: 10px !important; 
+}
+
+#update:hover {
+    background-color: #0056B3;
+    box-shadow: 0px 4px 15px rgba(0, 168, 255, 0.7);
+}
+
+/* Delete button */
+#delete-button {
+    width: 200px;
+    height: 48px;
+    position: sticky;
+    background-color: #DC3545;
+    color: #FFF;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.98s ease;
+    border-radius: 10px; 
+}
+
+#delete-button:hover {
+    background-color: #B02A37;
+    box-shadow: 0px 4px 15px rgba(220, 53, 69, 0.7);
+}
+
+.sub-link a {
+    text-decoration: none;--bs-text-opacity: 1 !important;
+    display: inline-block;
+     transition: all .50s ease;
+}
+
+.sub-link a:hover {
+     transform: translateY(-4px) scale(1.05);
+}
+
+
 .no-chat {
     height: 100vh;
     width: 85vw;
@@ -118,7 +296,7 @@ body{
     justify-content: center;
     gap: 5rem;
     transition: color 0.98s ease-in-out, text-shadow 0.98s ease-in-out;
-    z-index: 10;
+    z-index: 1;
     animation: fadeInUp 1.5s ease-out forwards; 
 }
 
@@ -127,6 +305,14 @@ form {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+}
+
+.thinking-ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+   background-color: #00A8FF;
+    animation: ai-thinking 2s infinite ease-in-out;
 }
 
 .input {
@@ -160,37 +346,3 @@ form {
 }
 
 
-.thinking-ball {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-   background-color: #00A8FF;
-    animation: ai-thinking 2s infinite ease-in-out;
-}
-
-
-.btns {
-    display: flex;
-    flex-direction: row;
-    width: 70%;
-    justify-content: space-evenly;
-    margin-bottom: 10px;
-}
-
-.delete {
-    background-color: #DC3545;
-    color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity)) !important;
-    border: none;
-    padding: 12px 24px;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.delete:hover {
-    background-color: #B02A37;
-    color: #FFF;
-    box-shadow: 0px 4px 15px rgba(220, 53, 69, 0.7);
-}
