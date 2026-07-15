@@ -99,6 +99,8 @@ body{
     text-overflow: ellipsis !important;
     white-space: nowrap;
     overflow: hidden;
+       flex: 1;
+    display: block;
 }
 
 .group-item:link, a:visited, a:hover, a:active {

@@ -10,23 +10,26 @@
 </head>
 <body>
 
-    <nav class="top-nav">
-        <h1> Hello, {{user.full_name}}</h1>
-        <a  href="/logout" class="delete">Logout</a>
-        <br>
-    </nav>
-
     <section class="display">
-    <div class="groups">
-        <p><a class="group-item" href="/chatroom">+ New Chat</a></p>
+    <div class="group-list">
+        <img src="{{ url_for('static', filename='icons/brand.png') }}" class="brand" alt="Profile Picture">
+        <div class="group-row">
+             <a class="group-item" href="/chatroom">+ New Chat</a>
+        </div>
         {% for group in groups %}
-        <p><a class="group-item" href="/chatroom/{{ group.id }}">{{ group.title }}</a> </p>
-        <p><a href="/clear-chat/{{ group.id }}">Delete Chat</a></p>
+        <div class="group-row">
+            <a class="group-item" href="/chatroom/{{ group.id }}">{{ group.title }}</a>
+            <button class="extras">⋮</button>      
+        </div>
         {% endfor %}
+        <div class="nameplate">
+            👤 {{user.full_name}}
+            <button class="profile">⋮</button>      
+        </div>
     </div>
   
     {% if chats and chats|length > 0 %}
-        <section class="full-chat">
+        <section class="chat">
             <div class="response" id="response">
                 {% for chat in chats %}
                         <div class="user">
@@ -47,18 +50,51 @@
             <form id="chat-form" action="/chat" method="post" class="col-3 mx-auto"> 
                 <input type="hidden" name="group_id" value="{{ group.id }}">
                     <br>
-                <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
-                    <br>
-                <div class="btns">
-                    
-                    <input id="submit" type="submit" value="Submit" class="btn btn-light">
-
-                </div>
+                <div class="input-wrapper">
+    <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
+    <input id="submit" type="submit" value="↑">
+</div>
             </form>
         </section>
     {% endif %}
 
       </section>
+
+
+      <div id="context-menu" class="menu">         
+        <button>✏ Rename</button>         
+        <button class="delete-btn">🗑 Delete</button>     
+      </div>
+
+       <div id="context-profile-menu" class="menu">         
+        <button id="open-profile"> Profile</button>         
+        <a href="/logout" class="logout">Logout</a>  
+      </div>
+
+
+      <section id="profile-menu">
+        <form action="/update/{{user.id}}" method="post" id="profile-form" class="col-6 mx-auto"> 
+                <h1 id="update-title">User Information</h1>
+                <br>
+
+            <label for="full_name">Full Name:</label>
+            <input type="text" name="full_name" class="form-control" value="{{user.full_name}}"> 
+    
+            <label for="email">Email:</label>
+            <input type="text" name="email" class="form-control" value="{{user.email}}" autocomplete="username">
+
+            <br>
+            <div id="buttons">
+                <input id="update" type="submit" value="Update">
+                </form>
+                  <form action='/delete_account/{{ user.id }}' method="POST" onsubmit="return confirmDelete()">
+                    <button type="submit" id="delete-button">Delete Account</button>
+                </form>
+            </div>
+            <p class="sub-link">Change password? <a href="/forgot_password">Click Here!</a></p>  
+      </section>
 <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>
+
+
