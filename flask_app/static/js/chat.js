@@ -124,12 +124,14 @@ document.querySelectorAll(".extras").forEach(button => {
 
 document.getElementById("rename-chat").addEventListener("click", () => {
 
+    if (!currentRow) return;
+
     const link = currentRow.querySelector(".group-item");
     const form = currentRow.querySelector(".rename-form");
-    const input = form.querySelector(".rename-input");
+    const input = currentRow.querySelector(".rename-title");
 
     link.style.display = "none";
-    form.style.display = "block";
+    form.style.display = "inline-block";
 
     input.focus();
     input.select();
@@ -137,11 +139,52 @@ document.getElementById("rename-chat").addEventListener("click", () => {
     menu.style.display = "none";
 });
 
-document.querySelectorAll(".rename-input").forEach(input => {
-    input.addEventListener("keydown", (e) => {
+document.querySelectorAll(".rename-title").forEach(input => {
+
+    // Submit on Enter
+    input.addEventListener("keydown", e => {
         if (e.key === "Enter") {
             e.preventDefault();
             input.form.submit();
         }
     });
+
+    // Cancel on click away
+    input.addEventListener("blur", () => {
+        const row = input.closest(".group-row");
+
+        row.querySelector(".group-item").style.display = "";
+        row.querySelector(".rename-form").style.display = "none";
+    });
+
+});
+
+
+
+
+
+
+
+// Text to Speech
+document.addEventListener("click", function (e) {
+
+    if (!e.target.classList.contains("speak-btn")) return;
+
+    // If already speaking, stop.
+    if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+        return;
+    }
+
+    const text = e.target.closest(".ai").querySelector("p").innerText;
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = "en-US";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    speechSynthesis.speak(speech);
+
 });

@@ -172,7 +172,7 @@ body{
     flex: 1;
 }
 
-.rename-input {
+.rename-title {
     width: 100%;
     border: none;
     outline: none;
@@ -419,6 +419,7 @@ form {
 
 
 .ai {
+     position: relative;
     align-self: flex-start;
     height: auto;
     max-width: 70%;
@@ -427,6 +428,23 @@ form {
     padding: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
+
+.speak-btn {
+    margin-top: 8px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    color: #555;
+    transition: .2s;
+}
+
+.speak-btn:hover {
+    color: #00A8FF;
+    transform: scale(1.1);
+}
+
+
 
 .user p,
 .ai p {
