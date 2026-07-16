@@ -187,6 +187,18 @@ a:hover {
      transform: translateY(-4px) scale(1.05);
 }
 
+@media (max-width: 1440px) {
+
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login {
+        width: 90% !important;
+    }
+}
+
 @media (max-width: 992px) {
 
     body {

@@ -49,7 +49,23 @@ def chat():
         return redirect(f'/chatroom/{group_id}')
 
 
-@app.route('/clear-chat/<int:group_id>')
+
+@app.route('/rename-chat/<int:group_id>', methods=['POST'])
+def rename_chat(group_id):
+
+    if 'user_id' not in session:
+        return redirect('/logout')
+    
+    data = {
+        "title": request.form["title"]
+    }
+   
+    Group.rename_group(data,group_id)
+
+    return redirect(request.referrer)
+    
+
+@app.route('/clear-chat/<int:group_id>', methods=['POST'])
 def clear_chat(group_id):
 
     if 'user_id' not in session:

@@ -19,6 +19,11 @@
         {% for group in groups %}
         <div class="group-row">
             <a class="group-item" href="/chatroom/{{ group.id }}">{{ group.title }}</a>
+
+            <form class="rename-form" action="/rename-chat/{{ group.id }}" method="post" style="display: none;">
+                <input type="text" name="title" value="{{ group.title }}" class="rename-title">
+            </form>
+
             <button class="extras">⋮</button>      
         </div>
         {% endfor %}
@@ -32,28 +37,26 @@
         <section class="chat">
             <div class="response" id="response">
                 {% for chat in chats %}
-                        <div class="user">
-                            <p>{{ chat.prompt }}</p>
-                        </div>
-                 
-                        <div class="ai">
-                            <p>{{ chat.response }}</p>
-                        </div>
-                
+                    <div class="user">
+                        <p>{{ chat.prompt }}</p>
+                    </div>
+            
+                    <div class="ai">
+                        <p>{{ chat.response }}</p>
+                    </div>
                 {% endfor %}
             </div>
 
-            <div id="loading" style="display: none;">
-                <div class="thinking-ball"></div>
-            </div>
-
             <form id="chat-form" action="/chat" method="post" class="col-3 mx-auto"> 
+                 <div id="loading" style="display:none;">         
+                    <div class="thinking-ball"></div>     
+                </div> 
                 <input type="hidden" name="group_id" value="{{ group.id }}">
                     <br>
                 <div class="input-wrapper">
-    <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
-    <input id="submit" type="submit" value="↑">
-</div>
+                    <textarea id="prompt" name="prompt" class="input form-control" placeholder="Ask Away!" required></textarea>
+                    <input id="submit" type="submit" value="↑">
+                </div>
             </form>
         </section>
     {% endif %}
@@ -61,9 +64,12 @@
       </section>
 
 
-      <div id="context-menu" class="menu">         
-        <button>✏ Rename</button>         
-        <button class="delete-btn">🗑 Delete</button>     
+      <div id="context-menu" class="menu">        
+            <button id="rename-chat">✏ Rename</button>
+
+        <form action='/clear-chat/{{ group.id }}' method="POST">
+            <button type="submit" class="delete-btn">🗑 Delete</button>
+        </form>
       </div>
 
        <div id="context-profile-menu" class="menu">         

@@ -109,3 +109,39 @@ document.addEventListener("click", (e) => {
     }
 
 });
+
+
+
+
+let currentRow = null;
+
+document.querySelectorAll(".extras").forEach(button => {
+    button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        currentRow = button.closest(".group-row");
+    });
+});
+
+document.getElementById("rename-chat").addEventListener("click", () => {
+
+    const link = currentRow.querySelector(".group-item");
+    const form = currentRow.querySelector(".rename-form");
+    const input = form.querySelector(".rename-input");
+
+    link.style.display = "none";
+    form.style.display = "block";
+
+    input.focus();
+    input.select();
+
+    menu.style.display = "none";
+});
+
+document.querySelectorAll(".rename-input").forEach(input => {
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            input.form.submit();
+        }
+    });
+});

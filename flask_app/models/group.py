@@ -65,6 +65,18 @@ class Group:
 
         return int(results[0]['group_number']) + 1
     
+
+    # Updating User Information
+    @classmethod
+    def rename_group(cls, data, id):
+        query = "UPDATE `groups` SET title = %(title)s, updated_at = NOW() WHERE id = %(id)s;"
+        data['id'] = id
+        connectToMySQL(db).query_db(query, data)
+        results = connectToMySQL(db).query_db(query, data)
+        return results
+        
+
+
     @classmethod
     def delete(cls, group_id):
         query = "DELETE FROM `groups` WHERE id = %(id)s;"
