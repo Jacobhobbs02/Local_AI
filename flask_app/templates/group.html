@@ -42,7 +42,7 @@
                     </div>
             
                     <div class="ai">
-                        <p>{{ chat.response }}</p>
+                        <p class="markdown">{{ chat.response }}</p>
                          <button class="speak-btn" title="Read aloud">🔊</button>
                     </div>
                 {% endfor %}
@@ -100,6 +100,9 @@
             </div>
             <p class="sub-link">Change password? <a href="/forgot_password">Click Here!</a></p>  
       </section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>

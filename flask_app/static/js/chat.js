@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } 
 });
 
+
 /* helps loading dot preform when page loads */
 document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById("chat-form");
@@ -162,29 +163,51 @@ document.querySelectorAll(".rename-title").forEach(input => {
 
 
 
+//Markdown
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".markdown").forEach(element => {
+        element.innerHTML = marked.parse(element.textContent);
+    });
+});
+
+
+
+
+
 
 
 
 // Text to Speech
-document.addEventListener("click", function (e) {
+let currentAudio = null;
 
+document.addEventListener("click", async function (e) {
     if (!e.target.classList.contains("speak-btn")) return;
 
-    // If already speaking, stop.
-    if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
+    if (currentAudio && !currentAudio.paused) {
+        currentAudio.pause();
+        currentAudio.curreentTime = 0;
+        currentAudio = null;
         return;
     }
 
     const text = e.target.closest(".ai").querySelector("p").innerText;
 
-    const speech = new SpeechSynthesisUtterance(text);
+    const response = await fetch("/tts", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            text: text
+        })
+    });
 
-    speech.lang = "en-US";
-    speech.rate = 1;
-    speech.pitch = 1;
-    speech.volume = 1;
+    const blob = await response.blob();
+    currentAudio = new Audio(URL.createObjectURL(blob));
 
-    speechSynthesis.speak(speech);
-
+    currentAudio.opened = () => {
+        currentAudio = null;
+    };
+    
+    currentAudio.play();
 });

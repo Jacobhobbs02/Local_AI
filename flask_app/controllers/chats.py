@@ -1,8 +1,12 @@
-from flask import render_template, redirect, session, request, flash, url_for
+from flask import render_template, redirect, session, request, flash, url_for, send_file
 from flask_app import app
 from flask_app.models.chat import Conversation
 from flask_app.models.group import Group
 import requests
+import edge_tts
+import asyncio
+import tempfile
+from langdetect import detect
 
 OLLAMA_URL = "http://192.168.2.180:11434/api/generate"
 
@@ -78,3 +82,43 @@ def clear_chat(group_id):
     Group.delete(group_id)
 
     return redirect(url_for("chatroom"))
+
+
+@app.route('/tts', methods = ['POST'])
+def tts():
+    text = request.json.get("text", "")
+
+    if not text:
+        return {"error": "no text"}, 400
+
+    try:
+        lang = detect(text)
+    except:
+        lang ="en"
+
+    voices = {
+        "en": "en-US-AriaNeural",
+        "es": "es-ES-ElviraNeural",
+        "fr": "fr-FR-DeniseNeural",
+        "de": "de-DE-KatjaNeural",
+        "it": "it-IT-ElsaNeural",
+        "pt": "pt-BR-FranciscaNeural",
+        "ja": "ja-JP-NanamiNeural",
+        "ko": "kp-KR-SunHiNeural",
+        "zh-cn": "zh-CN-XiaoxiaoNeural",
+        "ru": "ru-RU-SvetlanaNeural",
+        "hi": "hi-IN-SwaraNeural",
+        "ar": "ar-SA-ZariyahNeural"
+    }
+    voice = voices.get(lang, "en-US-AriaNeural")
+    
+    temp = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+    filename = temp.name
+    temp.close()
+
+    async def generate():
+        communicate = edge_tts.Communicate(text, voice)
+        await communicate.save(filename)
+
+    asyncio.run(generate())
+    return send_file(filename, mimetype="audio/mpeg")

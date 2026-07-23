@@ -10,6 +10,12 @@ pymysql = "*"
 bcrypt = "*"
 itsdangerous = "*"
 flask-bcrypt = "*"
+numpy = "*"
+torch = "*"
+torchaudio = "*"
+soundfile = "*"
+edge-tts = "*"
+langdetect = "*"
 
 [dev-packages]
 
