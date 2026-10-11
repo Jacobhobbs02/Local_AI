@@ -134,7 +134,7 @@ The admin and password made here will go into the mysqlconnection.py file
 
 Step 4: App Configuration
 
-Local AI GitHub Code: 
+Local AI GitHub Code: https://github.com/Jacobhobbs02/Local_AI
 
 
 THIS NEXT STEP IS FOR GMAILS (if you use a different email you should just be able to use your email's password)
